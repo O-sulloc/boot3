@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.jh.boot3.board.BoardMapper">
+	<select id="getFileList" resultType="BoardFilesVO">
+		SELECT * FROM BOARDFILES ORDER BY NUM DESC
+	</select>
+	
+	<select id="getFileDetail" parameterType="BoardFilesVO" resultType="BoardFilesVO">
+		SELECT * FROM BOARDFILES
+		WHERE NUM=#{num}
+	</select>
+
+	<delete id="setFileDelete" parameterType="BoardFilesVO">
+		DELETE FROM BOARDFILES
+		WHERE NUM = #{num}
+	</delete>
+
+	<select id="setFileAdd" parameterType="BoardFilesVO">
+		INSERT INTO BOARDFILES
+		VALUES (NULL, #{num}, #{fileName}, #{oriName})
+	</select>
+
+	<update id="setUpdate" parameterType="BoardVO">
+		UPDATE BOARD 
+		SET CONTENTS=#{contents}, title=#{title}
+		WHERE NUM=#{num}
+	</update>
+	
+	<delete id="setDelete" parameterType="BoardVO">
+		DELETE FROM BOARD
+		WHERE NUM = #{num}
+	</delete>
+
+	<insert id="setAdd" parameterType="BoardVO">
+		INSERT INTO BOARD (NUM, TITLE, WRITER, CONTENTS, HIT, REGDATE, REF, STEP, DEPTH, CATEGORY)
+		VALUES (NULL, #{title}, #{writer}, #{contents}, 0, now(), 0, 0, 0, 1);
+	</insert>
+
+	<select id="getList" resultType="BoardVO" parameterType="Pager">
+		SELECT * FROM BOARD 
+		WHERE NUM>0
+			AND
+			<choose>
+				<when test="kind=='title'">
+					title
+				</when>
+				<when test="kind=='contents'">
+					contents
+				</when>
+				<otherwise>
+					writer
+				</otherwise>
+			</choose>
+			LIKE CONCAT('%', #{search}, '%')
+		ORDER BY NUM DESC
+		LIMIT #{startRow}, #{perPage}
+	</select>
+	
+	<select id="getDetail" resultType="BoardVO" parameterType="BoardVO">
+		SELECT * FROM BOARD WHERE NUM=#{num}
+	</select>
+</mapper>
