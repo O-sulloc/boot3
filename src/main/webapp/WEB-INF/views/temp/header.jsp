@@ -32,7 +32,7 @@
 	      </ul>
 	      
 	      <form class="d-flex" action="./list" method="get">
-	      	<div class="col-4">
+	      	<div class="col-4 me-2">
 				<select name="kind" class="form-select" aria-label="Default select example">
 				  <option selected value="title">title</option>
 				  <option value="contents">contents</option>

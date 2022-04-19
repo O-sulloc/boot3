@@ -40,6 +40,23 @@
 		VALUES (NULL, #{title}, #{writer}, #{contents}, 0, now(), 0, 0, 0, 1);
 	</insert>
 
+	<select id="getTotalCount" resultType="java.lang.Long" parameterType="Pager">
+		SELECT COUNT(NUM) FROM BOARD
+		WHERE
+		<choose>
+			<when test="kind=='title'">
+				title
+			</when>
+			<when test="kind=='contents'">
+				contents
+			</when>
+			<otherwise>
+				writer
+			</otherwise>
+		</choose>
+		LIKE CONCAT('%', #{search}, '%')
+	</select>
+
 	<select id="getList" resultType="BoardVO" parameterType="Pager">
 		SELECT * FROM BOARD 
 		WHERE NUM>0
