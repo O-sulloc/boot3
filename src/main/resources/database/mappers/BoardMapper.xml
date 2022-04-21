@@ -5,13 +5,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.jh.boot3.board.BoardMapper">
-	<select id="getFileList" resultType="BoardFilesVO">
-		SELECT * FROM BOARDFILES ORDER BY NUM DESC
-	</select>
-	
 	<select id="getFileDetail" parameterType="BoardFilesVO" resultType="BoardFilesVO">
-		SELECT * FROM BOARDFILES
-		WHERE NUM=#{num}
+		SELECT * FROM BOARDFILES WHERE FILENUM=#{fileNum}
+	</select>
+
+	<select id="getFileList" parameterType="BoardVO" resultType="BoardFilesVO">
+		SELECT * FROM BOARDFILES WHERE NUM=#{num}
 	</select>
 
 	<delete id="setFileDelete" parameterType="BoardFilesVO">
@@ -19,10 +18,10 @@
 		WHERE NUM = #{num}
 	</delete>
 
-	<select id="setFileAdd" parameterType="BoardFilesVO">
-		INSERT INTO BOARDFILES
+	<insert id="setFileAdd" parameterType="BoardFilesVO">
+		INSERT INTO BOARDFILES (FILENUM, NUM, FILENAME, ORINAME)
 		VALUES (NULL, #{num}, #{fileName}, #{oriName})
-	</select>
+	</insert>
 
 	<update id="setUpdate" parameterType="BoardVO">
 		UPDATE BOARD 
@@ -35,9 +34,9 @@
 		WHERE NUM = #{num}
 	</delete>
 
-	<insert id="setAdd" parameterType="BoardVO">
+	<insert id="setAdd" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
 		INSERT INTO BOARD (NUM, TITLE, WRITER, CONTENTS, HIT, REGDATE, REF, STEP, DEPTH, CATEGORY)
-		VALUES (NULL, #{title}, #{writer}, #{contents}, 0, now(), 0, 0, 0, 1);
+		VALUES (#{num}, #{title}, #{writer}, #{contents}, 0, now(), 0, 0, 0, 1)
 	</insert>
 
 	<select id="getTotalCount" resultType="java.lang.Long" parameterType="Pager">
@@ -77,7 +76,32 @@
 		LIMIT #{startRow}, #{perPage}
 	</select>
 	
-	<select id="getDetail" resultType="BoardVO" parameterType="BoardVO">
-		SELECT * FROM BOARD WHERE NUM=#{num}
+	<select id="getDetail" resultMap="getDetailResult" parameterType="BoardVO">
+		SELECT B.*, F.*
+		FROM
+			BOARD B
+				LEFT OUTER JOIN
+			BOARDFILES F
+				USING (NUM)
+		WHERE NUM=#{num}
 	</select>
+	
+	<resultMap type="BoardVO" id="getDetailResult">
+		<id column="num" property="num"/>
+		<result column="title" property="title"/>
+		<result column="writer" property="writer"/>
+		<result column="contents" property="contents"/>
+		<result column="regDate" property="regDate"/>
+		<result column="hit" property="hit"/>
+		<result column="ref" property="ref"/>
+		<result column="step" property="step"/>
+		<result column="depth" property="depth"/>
+		<result column="category" property="category"/>
+		<collection property="boardFilesVOs" javaType="java.util.List" ofType="BoardFilesVO">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</collection>
+	</resultMap>
+	
 </mapper>

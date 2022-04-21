@@ -64,7 +64,7 @@ class BoardMapperTest {
 		// assertEquals(1, result);
 	}
 
-	@Test
+	//@Test
 	void getList() throws Exception {
 		Pager pager = new Pager();
 		pager.makeRow();
@@ -73,10 +73,10 @@ class BoardMapperTest {
 		assertEquals(10, ar.size());
 	}
 
-	// @Test
+	@Test
 	void test() throws Exception {
 		BoardVO boardVO = new BoardVO();
-		boardVO.setNum(4L);
+		boardVO.setNum(219L);
 		boardVO = boardMapper.getDetail(boardVO);
 
 		System.out.println(boardVO.toString());

@@ -15,24 +15,25 @@
 	<div class="container mt-4">
 		<div class="row mt-4">
 			<div class="alert alert-success" role="alert">
-			  <h4 style="text-transform: capitalize;">${board} write</h4>
+			  <h4 style="text-transform: capitalize;">${board} update</h4>
 			</div>
 		</div>
 	</div>
 	
-	<form action="./add" method="post" enctype="multipart/form-data">
+	<form action="./update" method="post" enctype="multipart/form-data">
 	<div class="container mt-4">
+	<input type="hidden" name="num" value="${vo.num }">
 		<div class="mb-3 col-2">
 		  <label for="exampleFormControlInput1" class="form-label">Writer</label>
-		  <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" placeholder="Writer">
+		  <input type="text" value="${vo.writer}" name="writer" class="form-control" id="exampleFormControlInput1" placeholder="Writer">
 		</div>
 		<div class="mb-3 col-6">
 		  <label for="exampleFormControlInput1" class="form-label">Title</label>
-		  <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Write Title In Here">
+		  <input type="text" value="${vo.title}" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Write Title In Here">
 		</div>
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">Contents</label>
-		  <textarea class="form-control" name="contents" id="exampleFormControlTextarea1" rows="3" placeholder="Write Contents In Here"></textarea>
+		  <textarea class="form-control" name="contents" id="exampleFormControlTextarea1" rows="3" placeholder="Write Contents In Here">${vo.contents}</textarea>
 		</div>
 		
 		<div class="row mb-3">
@@ -48,7 +49,7 @@
 			</div>
 		</div>
 
-		<button type="submit" class="btn btn-outline-success mt-4">등록하기</button>
+		<button type="submit" class="btn btn-outline-success mt-4">Update</button>
 	</div>
 	</form>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

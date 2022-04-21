@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jh.boot3.util.FileVO;
 import com.jh.boot3.util.Pager;
 
 @Controller
@@ -24,10 +26,61 @@ public class BoardController {
 		return "board";
 	}
 
-	@PostMapping("add")
-	public ModelAndView setAdd(BoardVO boardVO) throws Exception {
+	@GetMapping("fileDown")
+	public ModelAndView getFileDown(BoardFilesVO boardFilesVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = boardService.setAdd(boardVO);
+		boardFilesVO = boardService.getFileDetail(boardFilesVO);
+
+		mv.addObject("fileVO", boardFilesVO);
+		// fileDown.class 가보면 FileVO fileVO = (FileVO) model.get("fileVO")로 담아둠
+
+		mv.setViewName("fileDown");// Bean(=class)의 이름과 동일하게 작성
+
+		return mv;
+	}
+
+	@GetMapping("delete")
+	public ModelAndView setDelete(BoardVO boardVO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		
+		int result = boardService.setDelete(boardVO);
+		
+		mv.setViewName("redirect:./list");
+
+		return mv;
+	}
+
+	@PostMapping("update")
+	public ModelAndView setUpdate(BoardVO boardVO, ModelAndView mv) throws Exception {
+		// servvice 호출
+		int result = boardService.setUpdate(boardVO);
+		mv.setViewName("redirect:./list");
+		return mv;
+	}
+
+	@GetMapping("update")
+	public ModelAndView setUpdate(BoardVO boardVO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		boardVO = boardService.getDetail(boardVO);
+		mv.setViewName("board/update");
+		mv.addObject("vo", boardVO);
+		return mv;
+	}
+
+	@GetMapping("detail")
+	public ModelAndView getDetail(BoardVO boardVO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("board/detail");
+		boardVO = boardService.getDetail(boardVO);
+		mv.addObject("vo", boardVO);
+		return mv;
+	}
+
+	@PostMapping("add")
+	public ModelAndView setAdd(BoardVO boardVO, MultipartFile[] files) throws Exception {
+		ModelAndView mv = new ModelAndView();
+
+		int result = boardService.setAdd(boardVO, files);
 
 		mv.setViewName("redirect:./list");
 		return mv;
@@ -35,7 +88,6 @@ public class BoardController {
 
 	@GetMapping("add")
 	public void setAdd() throws Exception {
-
 	}
 
 	@GetMapping("list")

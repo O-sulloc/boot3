@@ -9,8 +9,8 @@ import com.jh.boot3.util.Pager;
 @Mapper
 public interface BoardMapper {
 
-	// getFileList 매개변수 필요없음. 당연함. num 지정하지 않고 있는 파일 다 가져오는거니까. 나중에 페이저나 넣어라
-	public List<BoardFilesVO> getFileList() throws Exception;
+	// getFileList
+	public List<BoardFilesVO> getFileList(BoardVO boardVO) throws Exception;
 
 	// getFileDetail
 	public BoardFilesVO getFileDetail(BoardFilesVO boardFilesVO) throws Exception;
@@ -19,14 +19,16 @@ public interface BoardMapper {
 	public int setFileDelete(BoardFilesVO boardFilesVO) throws Exception;
 
 	// setFileAdd insert
-	public int setFileAdd(BoardFilesVO boardFilesVO) throws Exception;
+	// Mapper method attempted to return null from a method with a primitive return type (int).
+	// 라는 오류가 떠서 구글링해보니 Integer로 바꾸래서 바꿨더니 잘 된다.
+	public Integer setFileAdd(BoardFilesVO boardFilesVO) throws Exception;
 
 	// getdetail
 	public BoardVO getDetail(BoardVO boardVO) throws Exception;
 
-	//GETTOTAL 4/19
+	// GETTOTAL 4/19
 	public Long getTotalCount(Pager pager) throws Exception;
-	
+
 	// getlist
 	public List<BoardVO> getList(Pager pager) throws Exception;
 
