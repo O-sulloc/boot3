@@ -27,7 +27,7 @@
 		  </div>
 		</div>
 		
-        <form action="./add" method="post" class="needs-validation" novalidate>
+        <form action="./add" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
           <div class="row g-3">
           <div>
             <div class="col-sm-6">
@@ -59,7 +59,7 @@
             
             <div class="col-sm-6">
               <label for="checkPw" class="form-label">Password Check</label>
-              <input type="password" class="form-control" id="checkPw" placeholder="password" name="pw" required>
+              <input type="password" class="form-control" id="checkPw" placeholder="password" name="checkPw" required>
               <div class="invalid-feedback">
                 Password is required.
               </div>
@@ -83,12 +83,35 @@
               </div>
             </div>
 			
-			<div class="row mb-3">
-				<label for="files" class="form-label">picture<span class="text-muted"></label>
-				<input type="file" name="file" id="file" class="form-control">
+			<div>
+				<div class="col-6">
+					<label for="files" class="form-label">photo<span class="text-muted"></label>
+					<input type="file" name="files" id="files" class="form-control">
+				</div>
 			</div>
 			
-          <hr class="my-4">
+		<hr class="my-4">
+
+	          <div class="form-check">
+	            <input type="checkbox" class="form-check-input checkAll" id="all">
+	            <label class="form-check-label" for="all">ACCEPT ALL TERMS AND CONDITIONS</label>
+	          </div>
+	
+	          <div class="form-check">
+	            <input type="checkbox" class="form-check-input check" id="check1">
+	            <label class="form-check-label" for="check1">terms and conditions</label>
+	          </div>
+	
+			<div class="form-check">
+	            <input type="checkbox" class="form-check-input check" id="check2">
+	            <label class="form-check-label" for="check2">Shipping address is the same as my billing address</label>
+	          </div>
+	
+	          <div class="form-check">
+	            <input type="checkbox" class="form-check-input check" id="check3">
+	            <label class="form-check-label" for="check3">terms and conditions</label>
+	          </div>
+		<hr class="my-4">
 
           <button class="w-100 btn btn-success btn-lg mb-5" type="submit">Join!</button>
         </div>
@@ -98,6 +121,42 @@
   	</main>
     </div>
 
+
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	
+	<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<!-- calss=check / id check123 -->
+	<script type="text/javascript">
+		$("#all").click(function(){
+			$(".check").prop("checked", $("#all").prop("checked"));
+			//all의 속성을 가져오는거 (all에 체크되어 있으면 all의 속성을 가져와) = all의 속성 당연히 "checked"겠지. 체크되어 있으니까
+			//그니까 나머지 체크들에도 다 checked가 들어가겠지
+			//all이 체크해제 되면, 나머지 쳌박에도 체크해제가 들어가겠지
+		});
+		
+		$(".check").on("click",function(){
+			let check = true;
+			//체크박스 전부다 체크되어 있으면 true
+			
+			$(".check").each(function(index, item){
+				if(!$(item).prop("checked")){
+					//체크박스들 중에 체크 안된게 하나라도 있다면
+					check = false;
+					//체크라는 변수에 fasle 넣을게
+				}
+			});
+			
+			$("#all").prop("checked", check);
+			//쳌박 하나라도 해제된 거 있으면, checkall에 check해제시켜줘
+			//check에 false 들어가잇으니까 그 값이 들어가는거임.
+			
+		});
+	
+
+		
+	</script>
 </body>
 </html>

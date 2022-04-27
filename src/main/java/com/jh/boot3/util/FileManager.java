@@ -31,6 +31,8 @@ public class FileManager {
 
 		File file = new File(path);
 		if (!file.exists()) {
+			//이제 파일 저장하려고 하는데 폴더가 안만들어져있으면, 
+			// resources/upload/board 폴더 만들으라고
 			file.mkdirs();
 		}
 
@@ -38,7 +40,7 @@ public class FileManager {
 		String fileName = UUID.randomUUID().toString();
 		fileName = fileName + "_" + mf.getOriginalFilename();
 		
-		file = new File(path, fileName);
+		file = new File(file, fileName);
 		
 		mf.transferTo(file);
 		

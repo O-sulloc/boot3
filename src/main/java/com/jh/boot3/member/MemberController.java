@@ -22,11 +22,52 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	@ModelAttribute("member")
-	public String getMember() {
+	@ModelAttribute("board")
+	public String getBoard() {
 		return "member";
 	}
-
+	
+	@PostMapping("update")
+	public ModelAndView setUpdate(MemberVO memberVO, HttpSession session)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		MemberVO vo = (MemberVO)session.getAttribute("member");
+		memberVO.setId(vo.getId());
+		int result = memberService.setUpdate(memberVO);
+		mv.setViewName("redirect:./mypage");
+		return mv;
+	}
+	
+	
+	@GetMapping("update")
+	public ModelAndView setUpdate(HttpSession session)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		MemberVO memberVO =(MemberVO)session.getAttribute("member");
+		memberVO = memberService.getDetail(memberVO);
+		
+		mv.addObject("vo", memberVO);
+		mv.setViewName("member/update");
+		return mv;
+	}
+	
+	@GetMapping("mypage")
+	public ModelAndView getMypage(HttpSession session)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		MemberVO memberVO =(MemberVO)session.getAttribute("member");
+		memberVO = memberService.getDetail(memberVO);
+		
+		mv.addObject("vo", memberVO);
+		mv.setViewName("member/mypage");
+		return mv;
+	}
+	
+	@GetMapping("logout")
+	public ModelAndView getLogout(HttpSession session)throws Exception{
+		session.invalidate();
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:../");
+		return mv;
+	}
+	
 	@PostMapping("login")
 	public String getLogin(HttpSession session, MemberVO memberVO, String remember, Model model,
 			HttpServletResponse response) throws Exception {
@@ -69,10 +110,10 @@ public class MemberController {
 	}
 
 	@PostMapping("add")
-	public ModelAndView setAdd(MemberVO memberVO, MultipartFile file) throws Exception {
+	public ModelAndView setAdd(MemberVO memberVO, MultipartFile files) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = memberService.setAdd(memberVO, file);
-		mv.setViewName("redirect:/");
+		memberService.setAdd(memberVO, files);
+		mv.setViewName("redirect:../");
 		return mv;
 	}
 
@@ -80,6 +121,18 @@ public class MemberController {
 	public ModelAndView setAdd(MemberVO memberVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("member/add");
+		return mv;
+	}
+	
+	@GetMapping("delete")
+	public ModelAndView setDelete(HttpSession session)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		MemberVO memberVO =(MemberVO)session.getAttribute("member");
+		int result = memberService.setDelete(memberVO);
+		
+		session.invalidate();
+		
+		mv.setViewName("redirect:../");
 		return mv;
 	}
 }

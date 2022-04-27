@@ -52,7 +52,7 @@
 		<div class="row justify-content-between">
 			<div class="col-4">
 				<form class="d-flex" action="./list" method="get">
-					<div class="col-4 me-2">
+					<div class="col-4 me-1">
 						<select name="kind" class="form-select"
 							aria-label="Default select example">
 							<option selected value="title">title</option>
@@ -60,10 +60,12 @@
 							<option value="writer">writer</option>
 						</select>
 					</div>
-
-					<input class="form-control col-2 me-2" value="${pager.search}"
-						type="search" placeholder="Search" name="search"
-						aria-label="Search">
+					
+					<div class="col-6 me-1">
+						<input class="form-control col-2" value="${pager.search}"
+							type="search" placeholder="Search" name="search"
+							aria-label="Search">
+					</div>
 					<button type="submit" class="btn btn-outline-success">Search</button>
 
 				</form>

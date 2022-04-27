@@ -47,7 +47,7 @@
 						  MyPage
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						  <li><a class="dropdown-item" href="/member/mypage">update</a></li>
+						  <li><a class="dropdown-item" href="/member/mypage">mypage update</a></li>
 						</ul>
 					</li>
 				    <li class="nav-item">

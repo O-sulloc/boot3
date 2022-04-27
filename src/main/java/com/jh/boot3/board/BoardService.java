@@ -1,5 +1,6 @@
 package com.jh.boot3.board;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class BoardService {
 	public int setDelete(BoardVO boardVO) throws Exception {
 		List<BoardFilesVO> ar = boardMapper.getFileList(boardVO);
 		int result = boardMapper.setDelete(boardVO);
+		System.out.println("file size: " + ar.size());
 		
 		for(BoardFilesVO f : ar) {
 			fileManager.fileDelete(f.getFileName(), "resources/upload/board");
@@ -41,7 +43,7 @@ public class BoardService {
 		return boardMapper.getDetail(boardVO);
 	}
 
-	public int setAdd(BoardVO boardVO, MultipartFile[] files) throws Exception {
+	public int setAdd(BoardVO boardVO, MultipartFile [] files) throws Exception {
 		System.out.println("insert 전:" + boardVO.getNum());
 		int result = boardMapper.setAdd(boardVO);
 		System.out.println("insert 후:" + boardVO.getNum());
@@ -50,6 +52,7 @@ public class BoardService {
 			if (mf.isEmpty()) {
 				continue;
 			}
+			
 			// 1. file을 hdd에 저장
 			String fileName = fileManager.fileSave(mf, "resources/upload/board/");
 			System.out.println(fileName);

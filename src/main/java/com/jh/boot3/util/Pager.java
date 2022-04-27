@@ -10,21 +10,25 @@ public class Pager {
 	// 파라미터 값으로 받아도 되긴 함.
 	private Integer perPage;
 
-	// page: 밑에 뿌려줄 페이지 번호
-	private Integer page;
-	
-	private Long startNum;
-	private Long lastNum;
-	private boolean pre;
-	private boolean next;
-	
 	// db에서 글 조회할 때 몇 번부터 조회할 것인지
 	// limit 0,10 이 부분에서 0에 해당하는 부분
 	private Integer startRow;
-
+	
 	// 하단 페이지 부분에 몇 페이지가 나왔으면 좋겠는지
 	// 파라미터 값으로 받을 것임
 	private Integer pn;
+	
+	// page: 밑에 뿌려줄 페이지 번호
+	private Integer page;
+	
+	//밑에 뿌려지는 페이지 번호가 몇번부터 start되고 끝나는지
+	private Long startNum;
+	private Long lastNum;
+	
+	//다음,이전페이지 있는지 없는지
+	private boolean pre;
+	private boolean next;
+	
 
 	// search
 	// 파라미터 값으로 받을 것임
@@ -87,6 +91,7 @@ public class Pager {
 	}
 
 	public void makeRow() {
+		// startRow 구하는 메서드
 		// pn:1, perPage:10, starrow:0
 		// pn:2, perPage:10, starrow:10
 		// pn:3, perPage:10, starrow:20
@@ -102,7 +107,7 @@ public class Pager {
 		if (this.pn == null || this.pn < 1) {
 			this.pn = 1;
 		}
-		return pn;
+		return this.pn;
 	}
 
 	public Integer getPerPage() {

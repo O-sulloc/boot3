@@ -34,23 +34,48 @@
 		  <label for="exampleFormControlTextarea1" class="form-label">Contents</label>
 		  <textarea class="form-control" name="contents" id="exampleFormControlTextarea1" rows="3" placeholder="Write Contents In Here"></textarea>
 		</div>
+
+		<button type="button" class="btn btn-success mt-4 my-2" id="fileAdd">FileAdd</button>
+		<!-- 버튼이 버튼타입이어야 함 -->
 		
-		<div class="row mb-3">
-			<label for="files" class="col-sm-2 col-form-label">File</label>
-			<div class="col-sm-10">
-				<input type="file" name="files" id="files" class="form-control">
-			</div>
-		</div>
-		<div class="row mb-3">
-			<label for="files" class="col-sm-2 col-form-label">File</label>
-			<div class="col-sm-10">
-				<input type="file" name="files" id="files" class="form-control">
-			</div>
+		<div id="fileResult" class="row mb-3">
+			<!-- 제이쿼리로 버튼 태그들 만들거임. -->
 		</div>
 
 		<button type="submit" class="btn btn-outline-success mt-4">등록하기</button>
 	</div>
 	</form>
+	
+	<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		let count = 0;
+		
+		$("#fileAdd").click(function () {
+			if(count>4){
+				alert("최대 5개만 가능");
+				return;
+			}
+			let result = '<div class="input-group my-1">'
+			result = result + '<input name="files" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">'
+			result = result + '<button class="btn btn-outline-secondary del" type="button" id="inputGroupFileAddon04">X</button>'
+			result = result + '</div>';
+			
+			$("#fileResult").append(result);
+			
+			count++;
+		});
+		
+		$("#fileResult").on("click", ".del", function(){
+			$(this).parent().remove();
+			count--;
+			//this? 지금 선택한게 누구야? .del 이게 this인 거지
+			//얘의 부모를 선택한 후 지워
+			//그리고 count도 -1 해.
+		});
+	</script>
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

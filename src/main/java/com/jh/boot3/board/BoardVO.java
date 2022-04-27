@@ -19,5 +19,5 @@ public class BoardVO {
 	private Long depth;
 	private Integer category;
 	
-	private List<BoardFilesVO> boardFilesVOs;
+	private List<BoardFilesVO> filesVOs;
 }

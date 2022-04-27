@@ -5,10 +5,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.jh.boot3.member.MemberMapper">
-	<insert id="setFileAdd" parameterType="MemberFilesVO">
-		INSERT INTO MEMBERFILES (FILENUM, NUM, FILENAME, ORINAME)
-		VALUES (NULL, #{num}, #{fileName}, #{oriName})
-	</insert>
+	<select id="getFileDetail" parameterType="MemberVO" resultType="MemberFilesVO">
+ 		SELECT * FROM MEMBERFILES WHERE ID=#{id} 
+ 	</select>
+ 	
+ 	<insert id="setFileAdd" parameterType="MemberFilesVO">
+ 		INSERT INTO MEMBERFILES (FILENUM, ID, FILENAME, ORINAME)
+ 		VALUES(NULL, #{id}, #{fileName}, #{oriName})
+ 	</insert>
 
 	<delete id="setDelete" parameterType="MemberVO">
 		DELETE FROM MEMBER WHERE ID=#{id}
@@ -52,6 +56,6 @@
 
 	<insert id="setAdd" parameterType="MemberVO">
 		INSERT INTO MEMBER (ID, PW, NAME, EMAIL, PHONE)
-		VALUES (#{id}, #{pw}, #{name}, #{email}, #{phone})
-	</insert>
+		VALUES(#{id}, #{pw}, #{name}, #{email}, #{phone})
+	</insert> 	
 </mapper>

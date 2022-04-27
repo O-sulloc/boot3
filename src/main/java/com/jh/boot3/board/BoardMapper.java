@@ -21,7 +21,7 @@ public interface BoardMapper {
 	// setFileAdd insert
 	// Mapper method attempted to return null from a method with a primitive return type (int).
 	// 라는 오류가 떠서 구글링해보니 Integer로 바꾸래서 바꿨더니 잘 된다.
-	public Integer setFileAdd(BoardFilesVO boardFilesVO) throws Exception;
+	public int setFileAdd(BoardFilesVO boardFilesVO) throws Exception;
 
 	// getdetail
 	public BoardVO getDetail(BoardVO boardVO) throws Exception;

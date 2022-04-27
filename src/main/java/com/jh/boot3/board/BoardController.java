@@ -33,8 +33,10 @@ public class BoardController {
 
 		mv.addObject("fileVO", boardFilesVO);
 		// fileDown.class 가보면 FileVO fileVO = (FileVO) model.get("fileVO")로 담아둠
+		// 그거 그대로 꺼내온거
 
 		mv.setViewName("fileDown");// Bean(=class)의 이름과 동일하게 작성
+		//fileDown에 component로 만든 bean 말하는거임.
 
 		return mv;
 	}
@@ -52,7 +54,6 @@ public class BoardController {
 
 	@PostMapping("update")
 	public ModelAndView setUpdate(BoardVO boardVO, ModelAndView mv) throws Exception {
-		// servvice 호출
 		int result = boardService.setUpdate(boardVO);
 		mv.setViewName("redirect:./list");
 		return mv;
@@ -77,7 +78,7 @@ public class BoardController {
 	}
 
 	@PostMapping("add")
-	public ModelAndView setAdd(BoardVO boardVO, MultipartFile[] files) throws Exception {
+	public ModelAndView setAdd(BoardVO boardVO, MultipartFile [] files) throws Exception {
 		ModelAndView mv = new ModelAndView();
 
 		int result = boardService.setAdd(boardVO, files);

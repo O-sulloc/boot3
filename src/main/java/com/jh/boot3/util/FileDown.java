@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
-@Component("")
+//component 아무것도 안 적으면, 클래스 이름이랑 똑같이 생성됨.(첫글자만 소문자로 바꿔서)
+@Component
 public class FileDown extends AbstractView {
 
 	@Autowired
@@ -32,6 +33,7 @@ public class FileDown extends AbstractView {
 		path = servletContext.getRealPath(path);
 
 		// 2. model에서 파일 객체 get해오기(꺼내기)
+		// 형변환
 		FileVO fileVO = (FileVO) model.get("fileVO");
 
 		// 3. 위의 정보를 담는 파일 객체 생성

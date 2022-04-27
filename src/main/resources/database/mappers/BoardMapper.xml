@@ -97,7 +97,7 @@
 		<result column="step" property="step"/>
 		<result column="depth" property="depth"/>
 		<result column="category" property="category"/>
-		<collection property="boardFilesVOs" javaType="java.util.List" ofType="BoardFilesVO">
+		<collection property="filesVOs" javaType="java.util.List" ofType="BoardFilesVO">
 			<id column="fileNum" property="fileNum"/>
 			<result column="fileName" property="fileName"/>
 			<result column="oriName" property="oriName"/>
