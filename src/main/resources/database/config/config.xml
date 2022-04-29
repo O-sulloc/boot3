@@ -10,6 +10,8 @@
 		<typeAlias type="com.jh.boot3.board.BoardFilesVO" alias="BoardFilesVO" />
 		<typeAlias type="com.jh.boot3.member.MemberVO" alias="MemberVO" />
 		<typeAlias type="com.jh.boot3.member.MemberFilesVO" alias="MemberFilesVO" />
+		<typeAlias type="com.jh.boot3.product.ProductVO" alias="ProductVO" />
+		<typeAlias type="com.jh.boot3.product.ProductFilesVO" alias="ProductFilesVO" />
 		<typeAlias type="com.jh.boot3.util.Pager" alias="Pager"/>
 	</typeAliases>
 </configuration>

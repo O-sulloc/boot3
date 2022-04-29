@@ -46,11 +46,86 @@
 		</div>
 	</div>
 	
-	<!-- bootstrap -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<div class="container">
+		<input type="text" id="v1">
+		<input type="checkbox" class="num" name="num" value="a">
+		<input type="checkbox" class="num" name="num" value="b">
+		<input type="checkbox" class="num" name="num" value="c">
+		<input type="checkbox" class="num" name="num" value="d">
+		<button id="btn1">GET</button>
+		<button id="btn2">POST</button>
+		<button id="btn3">ajax</button>
+	</div>
 	
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		$("#btn3").click(function(){
+			let ar = [1,2,3];
+			
+			let nums = [];
+			$(".num").each(function(idx, item){
+				//index번호로 반복문 꺼내오고 item에 담아
+				if($(item).prop("checked")){
+					//item에 checked라는 속성이 트루르라면
+					console.log($(item).val());
+					nums.push($(item).val());
+				}
+			})
+
+			
+			let v =$('#v1').val();
+			$.ajax({
+				type: "POST",
+				url: "./arrayTest",
+				traditional:true,
+				data:{
+					msg:v,
+					numbers: ar
+				},
+				success: function(d){
+					console.log(d.trim());
+				},
+				error:function(){
+					alert('error');
+				}
+			});
+		});
+		
+		$("#btn2").click(function(){
+			let v =$('#v1').val();
+			$.post("./postTest", {msg:v}, function(data){
+				console.log(data.trim());
+			});
+		});
 	
+		$('#btn1').on("click", function(){
+			//버튼을 클릭하면 
+			let v =$('#v1').val();
+			console.log(v);
+			//콘솔에 v를 출력해줘
+			//v에는 v1에 입력한 값이 들어가 있음 
+			$.get("./getTest?msg="+v, function(data){
+				//btn1을 누르면 ./getTest url로 비동기 get방식을 실행시켜달라고 요청함.
+				//homecontroller에 getTest가 발동됨
+				//이제 파라미터로 v의 값을 넘겨주고 싶음. url뒤에 물음표로 처리하면된다.
+				//"./getTest?이름1="+값1+"&이름2="+값2 이렇게
+				
+
+				//.gettest?msg로 요청을 보내면, 익명 함수인 function()이 응답을 받음
+				//근데 그 응답으로 받는 데이터(값, text,여기서는 v)는 콜백함수인 function()의 매개변수로 받을 수 있다.
+				//즉, function()에 data라는 매개변수를 선언하고 그걸로 v1의 값 v를 담을 수 있는거?
+				//그걸 다시 홈컨트롤러의 common/getresult가 응답으로 받아줌
+				//getResult의 모든 html이 data에 담기는거 ㅇㅇ
+				console.log(data.trim());
+				//출력해보면 알 수 있음
+				//공백없애려고 trim썼다.
+				
+			});
+		});
+	</script>
+	
+	<!-- bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>	
 </body>
 </html>
