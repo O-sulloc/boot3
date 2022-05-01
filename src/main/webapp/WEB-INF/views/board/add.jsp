@@ -56,7 +56,46 @@
 	<script type="text/javascript">
 		//summernote
 		$('#contents').summernote({
-			height: 400
+			height: 400,
+			placeholder:'write here..',
+			callbacks:{
+				onImageUpload: function(files){
+					//files는 업로드한 이미지 파일들을 담는 객체를 의미한다.
+					let formData = new FormData();
+					//변수명은 자유
+					formData.append("files", files[0]);
+					//업로드한 파일 하나하나를 formData에 append하겠다.
+					
+					$.ajax({
+						type:"POST",
+						url: "./summerFileUpload",
+						processData: false,
+						contentType: false,
+						data: formData,
+						success: function(data){
+							$("#contents").summernote('editor.insertImage', data.trim());
+						}
+					}); //ajax
+				}, //onImageUpload
+				onMediaDelete: function(files){
+					//summernote에서 이미지 delete하면 hdd에서도 삭제되도록
+					
+					let fileName =$(files[0]).attr("src");
+					//그러면 파일이 저장된 경로명을 알아야 되는데, 그건 img 태그의 src에 들어가 있음.
+					//그니까 src 속성의 값을 가져와
+					console.log(fileName);
+					$.ajax({
+						type:"GET",
+						url:"./summerFileDelete",
+						data:{
+							fileName:fileName
+						},
+						success:function(data){
+							console.log(data);
+						}
+					});
+				}//onMediaDelete 끝
+			}
 		});
 	
 		let count = 0;

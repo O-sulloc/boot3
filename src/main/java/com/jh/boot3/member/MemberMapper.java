@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
+	public int setMemberRole(MemberVO memberVO) throws Exception;
+	
 	//파일 detail
 	public MemberFilesVO getFileDetail(MemberVO memberVO)throws Exception;
 	

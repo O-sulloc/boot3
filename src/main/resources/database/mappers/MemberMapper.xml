@@ -5,6 +5,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.jh.boot3.member.MemberMapper">
+	<insert id="setMemberRole" parameterType="MemberVO">
+		INSERT INTO MEMBERROLE (ID, ROLEID)
+		VALUES (#{id}, 2);
+	</insert>
+
 	<select id="getFileDetail" parameterType="MemberVO" resultType="MemberFilesVO">
  		SELECT * FROM MEMBERFILES WHERE ID=#{id} 
  	</select>

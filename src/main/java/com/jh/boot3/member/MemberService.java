@@ -47,6 +47,8 @@ public class MemberService {
 		
 		int result = memberMapper.setAdd(memberVO);
 		
+		memberMapper.setMemberRole(memberVO);
+		
 		if(!file.isEmpty()) {
 			String fileName = fileManager.fileSave(file, "resources/upload/member/");
 			

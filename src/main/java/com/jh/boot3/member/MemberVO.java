@@ -12,4 +12,6 @@ public class MemberVO {
 	private String phone;
 	
 	private MemberFilesVO memberFilesVO;
+	
+	private Long roleId;
 }

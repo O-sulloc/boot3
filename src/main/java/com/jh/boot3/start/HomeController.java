@@ -1,17 +1,24 @@
 package com.jh.boot3.start;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.jh.boot3.aop.TransferService;
+
 @Controller
 public class HomeController {
 
+	@Autowired
+	private TransferService transferService;
+	
 	//백엔드는 동기, 비동기와는 전혀 연관관계가 없음.
 	//비동기, 동기는 프론트에서나 좀 이슈됐었어요.
 	
 	@GetMapping("/")
 	public String start() {
+		transferService.go();
 		return "index";
 	}
 	
