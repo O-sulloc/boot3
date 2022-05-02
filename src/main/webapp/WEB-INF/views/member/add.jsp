@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,60 +28,48 @@
 		  </div>
 		</div>
 		
-        <form action="./add" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+        <form:form modelAttribute="memberVO" method="post" enctype="multipart/form-data">
           <div class="row g-3">
           <div>
             <div class="col-sm-6">
               <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="name" required>
-              <div class="invalid-feedback">
-                Name is required.
-              </div>
+              <form:input path="name" cssClass="form-control"/>
+              <form:errors path="name"></form:errors>
             </div>
            </div>
 			
 			<div>
 			<div class="col-sm-6">
               <label for="id" class="form-label">ID</label>
-              <input type="text" class="form-control" id="id" placeholder="ID" name="id" required>
-              <div class="invalid-feedback">
-                ID is required.
-              </div>
+              <form:input path="id" cssClass="form-control"/>
+              <form:errors path="id"></form:errors>
             </div>
             </div>
 			
 			<div class="col-sm-6">
               <label for="pw" class="form-label">Password</label>
-              <input type="password" class="form-control" id="pw" placeholder="password" name="pw" required>
-              <div class="invalid-feedback">
-                Password is required.
-              </div>
+              <form:password path="pw" cssClass="form-control"/>
+              <form:errors path="pw"></form:errors>
             </div>
             
             <div class="col-sm-6">
               <label for="checkPw" class="form-label">Password Check</label>
-              <input type="password" class="form-control" id="checkPw" placeholder="password" name="checkPw" required>
-              <div class="invalid-feedback">
-                Password is required.
-              </div>
+              <%-- <form:password path="pw" cssClass="form-control"/>
+              <form:errors path="pw"></form:errors> --%>
             </div>
             
 		<div>
             <div class="col-6">
               <label for="email" class="form-label">Email <span class="text-muted"></label>
-              <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
+              <form:input path="email" cssClass="form-control"/>
+              <form:errors path="email"></form:errors>
             </div>
 		</div>
 		
             <div class="col-6">
               <label for="phone" class="form-label">Phone<span class="text-muted"></label>
-              <input type="text" class="form-control" name="phone" id="phone" placeholder="+82) 000-0000-0000">
-              <div class="invalid-feedback">
-                Please enter a valid phone number for shipping updates.
-              </div>
+              <form:input path="phone" cssClass="form-control" placeholder="+82) 000-0000-0000" />
+              <form:errors path="phone"></form:errors>
             </div>
 			
 			<div>
@@ -115,7 +104,7 @@
 
           <button class="w-100 btn btn-success btn-lg mb-5" type="submit">Join!</button>
         </div>
-        </form>
+        </form:form>
         </div>
       </div>
   	</main>

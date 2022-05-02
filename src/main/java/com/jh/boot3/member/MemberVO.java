@@ -2,15 +2,28 @@ package com.jh.boot3.member;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
 public class MemberVO {
 
+	//@NotNull //널값들어오지못하게 검증
+	//@NotEmpty //비어잇지않게 검증
+	@NotBlank(message = "id는 필수입니다.")
 	private String id;
+	
+	@Size(min=3, max=8, message = "비번은 최소 6글자 이상이어야 합니다.")
 	private String pw;
+	
+	@NotBlank(message="name은 필수입니다.")
 	private String name;
+	
+	@NotBlank(message="email 필수입니다.")
 	private String email;
+	
 	private String phone;
 	
 	private MemberFilesVO memberFilesVO;

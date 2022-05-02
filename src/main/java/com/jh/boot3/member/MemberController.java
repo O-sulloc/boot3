@@ -3,10 +3,13 @@ package com.jh.boot3.member;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -81,8 +84,19 @@ public class MemberController {
 	}
 	
 	@PostMapping("login")
-	public String getLogin(HttpSession session, MemberVO memberVO, String remember, Model model,
-			HttpServletResponse response) throws Exception {
+	public String getLogin(@Valid MemberVO memberVO, BindingResult bindingResult, String remember, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+							//validated 어노테이션 선언. 글고 vo 바로 뒤에 bindingreuslt를 준다. 순서가 중요함.
+		String path = "redirect:./login";
+		// 경로 지정. 일단 로그인 실패하면 login폼으로 다시 돌아가는 걸 넣어둠.
+		
+		if(bindingResult.hasErrors()) {
+			//검증 결과를 bindingresult에 담음
+			//검증 오류가 나면 로그인하는 창으로 가라
+			path = "member/login";
+			return path;
+		}
+		
+		
 		// cooke 발행하기
 		if (remember != null && remember.equals("1")) {
 			// 쿠키 생성
@@ -103,8 +117,7 @@ public class MemberController {
 
 		memberVO = memberService.getLogin(memberVO);
 
-		String path = "redirect:./login";
-		// 경로 지정. 일단 로그인 실패하면 login폼으로 다시 돌아가는 걸 넣어둠.
+
 
 		if (memberVO != null) {
 			session.setAttribute("member", memberVO);
@@ -126,15 +139,20 @@ public class MemberController {
 	}
 
 	@PostMapping("add")
-	public ModelAndView setAdd(MemberVO memberVO, MultipartFile files) throws Exception {
+	public ModelAndView setAdd(@Valid MemberVO memberVO,BindingResult bindingResult, MultipartFile files) throws Exception {
 		ModelAndView mv = new ModelAndView();		
 		memberService.setAdd(memberVO, files);
 		mv.setViewName("redirect:../");
+		
+		if(bindingResult.hasErrors()) {
+			mv.setViewName("member/add");
+			return mv;
+		}
 		return mv;
 	}
 
 	@GetMapping("add")
-	public ModelAndView setAdd(MemberVO memberVO) throws Exception {
+	public ModelAndView setAdd(@ModelAttribute MemberVO memberVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("member/add");
 		return mv;

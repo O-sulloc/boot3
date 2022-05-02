@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,38 +16,53 @@
 	
     <div class="container mt-5 text-center">
 			<main class="form-signin">
-			  <form action="./login" method="post">
-			    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-			
-			    <div class="row justify-content-center">
-					<div class="col-3">
-					    <div class="form-floating mt-2">
-					      <input type="text" name="id" class="form-control" id="floatingInput" placeholder="ID">
-					      <label for="floatingInput">ID</label>
-					    </div>
-					    <div class="form-floating">
-					      <input type="password" name="pw" class="form-control" id="floatingPassword" placeholder="Password">
-					      <label for="floatingPassword">Password</label>
-					    </div>
-					
-					    <div class="checkbox mb-3 mt-2">
-					      <label>
-					        <input type="checkbox" value="remember-me"> Remember me
-					      </label>
-					    </div>
-					    <button class="w-100 btn btn-lg btn-success mb-2" type="submit">Sign In</button>
-					    <button class="w-100 btn btn-lg btn btn-outline-danger" onclick="location.href='/member/join'" type="submit">Join Now!</button>
-					    
-					    <div class="checkbox mb-3 mt-2">
-					    	<button type="button" class="btn btn-outline-info" onclick="location.href='/member/findId'">ID찾기</button>
-					    	<button type="button" class="btn btn-outline-info">PW찾기</button>
-					    </div>
-				    </div>
-				</div>
+			  <!-- html form tag ㄷㅐ신 spring form tag 사용 -->
+			  <!-- form 태그 안에서 action태그 써도 되고 안써도 되고 (안쓰면 url주소로 action)-->
+			  <form:form modelAttribute="memberVO" method="POST">
+				    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 				
-			  </form>
+				    <div class="row justify-content-center">
+						<div class="col-3">
+						    <div class="form-floating mt-2">
+						      <!-- <input type="text" name="id" class="form-control" id="floatingInput" placeholder="ID"> -->
+						      
+						      <form:input path="id" cssClass="form-control"/>
+						      <!-- path="id"는 input의 id랑 같은거고 cssclass는 inbput의 clss랑 같은거고 -->
+						      <div>
+						      	<!-- 잘못된 데이터가 들어갔을 때  -->
+						      	<form:errors path="id"></form:errors>
+						      </div>
+						      <label for="floatingInput">ID</label>
+						    </div>
+						    
+						    <div class="form-floating">
+						      <form:password path="pw" cssClass="form-control"/>
+						      <!-- <input type="password" name="pw" class="form-control" id="floatingPassword" placeholder="Password">-->
+						      <label for="floatingPassword">Password</label>
+						      <div>
+						      	<form:errors path="pw"></form:errors>
+						      </div>
+						    </div>
+						
+						    <div class="checkbox mb-3 mt-2">
+						      <label>
+						        <input type="checkbox" value="remember-me"> Remember me
+						      </label>
+						    </div>
+						    <button class="w-100 btn btn-lg btn-success mb-2" type="submit">Sign In</button>
+						    <button class="w-100 btn btn-lg btn btn-outline-danger" onclick="location.href='/member/join'" type="submit">Join Now!</button>
+						    
+						    <div class="checkbox mb-3 mt-2">
+						    	<button type="button" class="btn btn-outline-info" onclick="location.href='/member/findId'">ID찾기</button>
+						    	<button type="button" class="btn btn-outline-info">PW찾기</button>
+						    </div>
+					    </div>
+					</div>
+				
+			  </form:form>
 			</main>
 		</div>
+		
 	
 
 	
