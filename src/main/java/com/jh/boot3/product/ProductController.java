@@ -28,9 +28,22 @@ public class ProductController {
 		return "product";
 	}
 	
+	@GetMapping("detail")
+	public void detail() {
+		
+	}
+	
 	@GetMapping("manage")
-	public ModelAndView manage() throws Exception{
+	public ModelAndView manage(HttpSession session, Pager pager) throws Exception{
 		ModelAndView mv = new ModelAndView();
+		
+		MemberVO memberVO=(MemberVO) session.getAttribute("member");
+		pager.setId(memberVO.getId());
+		//pager에 추가한 id에 지금 로그인한 사람의 id를 넣어
+		
+		List<ProductVO> ar = productService.getList(pager);
+		//판매자가 쓴 글 전체 불러오는거니까 list형식
+		mv.addObject("list", ar);
 		
 		mv.setViewName("product/manage");
 		return mv;

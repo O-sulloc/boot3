@@ -22,7 +22,14 @@
 	<select id="getList" parameterType="Pager" resultMap="getJoin">
 		SELECT P.*, F.*
 		FROM (
-				SELECT * FROM PRODUCT WHERE PRODUCTNUM >0 AND
+				SELECT * FROM PRODUCT 
+				WHERE PRODUCTNUM >0 
+
+				<if test="id != null">
+					AND ID=#{id}
+				</if>
+				
+				AND
 				<choose>
 					<when test="kind=='name'">
 						PRODUCTNAME

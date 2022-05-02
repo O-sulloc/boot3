@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
+	//멤버 아이디 찾기
+	public MemberVO getFindId(MemberVO memberVO) throws Exception;
+	
 	//파일 detail
 	public MemberFilesVO getFileDetail(MemberVO memberVO)throws Exception;
 	

@@ -23,6 +23,11 @@ public class MemberService {
 	@Value("${member.role.member}")
 	private String memberRole;
 	
+	//findid
+	public MemberVO getFindId(MemberVO memberVO) throws Exception{
+		return memberMapper.getFindId(memberVO);
+	}
+	
 	// delete setDelete 탈퇴
 	public int setDelete(MemberVO memberVO)throws Exception{
 		MemberFilesVO memberFilesVO = memberMapper.getFileDetail(memberVO);

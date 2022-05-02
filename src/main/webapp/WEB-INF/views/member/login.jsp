@@ -36,6 +36,11 @@
 					    </div>
 					    <button class="w-100 btn btn-lg btn-success mb-2" type="submit">Sign In</button>
 					    <button class="w-100 btn btn-lg btn btn-outline-danger" onclick="location.href='/member/join'" type="submit">Join Now!</button>
+					    
+					    <div class="checkbox mb-3 mt-2">
+					    	<button type="button" class="btn btn-outline-info" onclick="location.href='/member/findId'">ID찾기</button>
+					    	<button type="button" class="btn btn-outline-info">PW찾기</button>
+					    </div>
 				    </div>
 				</div>
 				

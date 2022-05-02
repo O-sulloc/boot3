@@ -27,6 +27,18 @@ public class MemberController {
 		return "member";
 	}
 	
+	@PostMapping("findId")
+	public ModelAndView getFindId(MemberVO memberVO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		memberVO=memberService.getFindId(memberVO);
+		mv.addObject("idResult", memberVO);
+		mv.setViewName("member/findIdResult");
+		return mv;
+	}
+	
+	@GetMapping("findId")
+	public void getFindId() throws Exception{}
+	
 	@PostMapping("update")
 	public ModelAndView setUpdate(MemberVO memberVO, HttpSession session)throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -104,14 +116,18 @@ public class MemberController {
 	}
 
 	@GetMapping("login")
-	public void getLogin(Model model,
+	public void getLogin(@ModelAttribute MemberVO memberVO, Model model,
 			@CookieValue(value = "remember", defaultValue = "", required = false) String rememberId) throws Exception {
-
+		
+		//0502 수업 form검증을 위해 빈 vo객체를 jsp에 보내준다.
+		//mv.addObject("vo", new MemberVO());
+		//아니면 매개변수에 어노테이션을 !modelattribute로 줘도 됨
+		
 	}
 
 	@PostMapping("add")
 	public ModelAndView setAdd(MemberVO memberVO, MultipartFile files) throws Exception {
-		ModelAndView mv = new ModelAndView();
+		ModelAndView mv = new ModelAndView();		
 		memberService.setAdd(memberVO, files);
 		mv.setViewName("redirect:../");
 		return mv;

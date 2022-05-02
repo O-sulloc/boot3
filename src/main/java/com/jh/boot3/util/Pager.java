@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class Pager {
+	private String id;
+	//아니면 pager를 만들어서 이 페이저를 상속받고 거기에 id를 추가핻 됨.
 
 	// 한 페이지당 글 몇 개씩 조회할 것인지
 	// limit 0,10 이부분에서 10에 해당하는 부분

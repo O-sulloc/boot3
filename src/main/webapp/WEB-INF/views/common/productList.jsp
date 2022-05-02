@@ -9,6 +9,7 @@
 			<th scope="col">Name</th>
 			<th scope="col">Price</th>
 			<th scope="col">Count</th>
+			<th scope="col">Sale</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,6 +19,7 @@
 				<td>${vo.productName}</td>
 				<td>${vo.productPrice}</td>
 				<td>${vo.productCount}</td>
+				<td>${vo.sale}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
