@@ -14,4 +14,7 @@ public class ProductVO {
 	private String productDetail;
 
 	private List<ProductFilesVO> productFilesVOs;
+	
+	private Integer sale;
+	private String id;
 }

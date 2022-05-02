@@ -59,8 +59,8 @@
 	</insert>
 
 	<insert id="setAdd" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="productNum">
-		INSERT INTO PRODUCT (PRODUCTNUM, PRODUCTNAME, PRODUCTPRICE, PRODUCTCOUNT, PRODUCTDETAIL)
-		VALUES (#{productNum}, #{productName}, #{productPrice}, #{productCount}, #{productDetail})
+		INSERT INTO PRODUCT (PRODUCTNUM, PRODUCTNAME, PRODUCTPRICE, PRODUCTCOUNT, PRODUCTDETAIL, SALE, ID)
+		VALUES (#{productNum}, #{productName}, #{productPrice}, #{productCount}, #{productDetail}, #{sale}, #{id})
 	</insert>
 	
 </mapper>

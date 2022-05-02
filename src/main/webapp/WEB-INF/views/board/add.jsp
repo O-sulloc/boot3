@@ -31,7 +31,7 @@
 	<div class="container mt-4">
 		<div class="mb-3 col-2">
 		  <label for="exampleFormControlInput1" class="form-label">Writer</label>
-		  <input type="text" name="writer" class="form-control" id="exampleFormControlInput1" placeholder="Writer">
+		  <input type="text" value="${member.id }" readonly="readonly" name="writer" class="form-control" id="exampleFormControlInput1" placeholder="Writer">
 		</div>
 		<div class="mb-3 col-6">
 		  <label for="exampleFormControlInput1" class="form-label">Title</label>

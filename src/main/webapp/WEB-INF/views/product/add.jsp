@@ -54,6 +54,21 @@
 		  <label for="exampleFormControlTextarea1" class="form-label">Product Detail</label>
 		  <textarea class="form-control" id="productDetail" name="productDetail"></textarea>
 		</div>
+		
+		<div class="mb-3">
+			<div class="form-check">
+			  <input class="form-check-input sale" type="radio" value="1" name="sale" id="flexRadioDefault1">
+			  <label class="form-check-label" for="flexRadioDefault1">
+			    판매
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input sale" type="radio" value="0" name="sale" id="flexRadioDefault2" checked>
+			  <label class="form-check-label" for="flexRadioDefault2">
+			    판매중지
+			  </label>
+			</div>
+		</div>
 
 		<button type="button" class="btn btn-success mt-4 my-2" id="fileAdd">FileAdd</button>
 		<!-- 버튼이 버튼타입이어야 함 -->
@@ -112,7 +127,12 @@
 			let productPrice =$('#productPrice').val();
 			let productCount =$('#productCount').val();
 			let productDetail =$('#productDetail').summernote('code');
-			//이 섬머노트는 이렇게도 가져올 수 있다.
+			let sale = 0;
+			$(".sale").each(function(idx,item){
+				if($(item).prop("checked")){
+					sale = $(item).val();
+				}
+			})
 			
 			$(".files").each(function(idx, item){
 				if(item.files.length>0){
@@ -132,6 +152,7 @@
 			formData.append("productPrice", productPrice);
 			formData.append("productCount", productCount);
 			formData.append("productDetail", productDetail);
+			formData.append("sale", sale);
 			//formdata에 데이터 추가
 			
 			

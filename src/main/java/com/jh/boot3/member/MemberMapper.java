@@ -1,11 +1,11 @@
 package com.jh.boot3.member;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
-	public int setMemberRole(MemberVO memberVO) throws Exception;
-	
 	//파일 detail
 	public MemberFilesVO getFileDetail(MemberVO memberVO)throws Exception;
 	
@@ -26,5 +26,8 @@ public interface MemberMapper {
 	
 	//회원가입
 	public int setAdd(MemberVO memberVO) throws Exception;
+	
+	//회원가입시 role 입력
+	public int setMemberRole(Map<String, String> map) throws Exception;
 	
 }

@@ -47,6 +47,15 @@
 	</div>
 	
 	<div class="container">
+		<c:if test="${not empty member}">
+			<c:forEach items="${member.roleVOs }" var="vo">
+				<h4>${vo.roleName}</h4>
+			</c:forEach>
+		</c:if>
+		
+	</div>
+	
+	<div class="container">
 		<input type="text" id="v1">
 		<input type="checkbox" class="num" name="num" value="a">
 		<input type="checkbox" class="num" name="num" value="b">

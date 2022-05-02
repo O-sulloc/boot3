@@ -2,6 +2,8 @@ package com.jh.boot3.product;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jh.boot3.member.MemberVO;
 import com.jh.boot3.util.Pager;
 
 @Controller
@@ -23,6 +26,14 @@ public class ProductController {
 	@ModelAttribute
 	public String getBoard() {
 		return "product";
+	}
+	
+	@GetMapping("manage")
+	public ModelAndView manage() throws Exception{
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("product/manage");
+		return mv;
 	}
 	
 	@GetMapping("ajaxList")
@@ -41,13 +52,19 @@ public class ProductController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView setAdd(ProductVO productVO, MultipartFile [] files) throws Exception{
+	public ModelAndView setAdd(HttpSession session,ProductVO productVO, MultipartFile [] files) throws Exception{
 													//add jsp에서도 files로 파라미터 보내주고 있어.
 		ModelAndView mv = new ModelAndView();
 		for(MultipartFile f:files) {
 			System.out.println(f.getOriginalFilename());
 			System.out.println(f.getSize());
 		}
+		
+		MemberVO memberVO=(MemberVO) session.getAttribute("member");
+		String loginId=memberVO.getId();
+		productVO.setId(loginId);
+		
+		System.out.println(productVO.getSale());
 		
 		int result =productService.setAdd(productVO, files);
 		
