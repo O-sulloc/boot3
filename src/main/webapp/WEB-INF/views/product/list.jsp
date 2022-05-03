@@ -8,6 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"	crossorigin="anonymous">
+
+<style type="text/css">
+	.detail{
+		cursor: pointer;
+	}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,7 +23,7 @@
 
 	<div class="row mt-4">
 		<c:forEach items="${list}" var="vo">
-			<div class="card my-3 me-2 col-4" style="width: 18rem;">
+			<div class="card my-3 me-2 col-4 detail" data-num=${vo.productNum} style="width: 18rem;" >
 				<img src="../resources/upload/product/${vo.productFilesVOs[0].fileName}" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title">${vo.productName}</h5>
@@ -52,9 +58,7 @@
 				</form>
 			</div>
 
-			<div class="col-1">
-				<a type="button" class="btn btn-outline-success" href="./add">글쓰기</a>
-			</div>
+			
 		</div>
 
 
@@ -88,7 +92,12 @@
 </div>
 	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
+	<script type="text/javascript">
+		$(".detail").click(function(){
+			let num = $(this).attr("data-num");
+			location.href="./detail?productNum="+num
+		})
+	</script>
 	<!-- bootstrap -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

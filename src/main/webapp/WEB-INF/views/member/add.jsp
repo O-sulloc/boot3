@@ -33,43 +33,52 @@
           <div>
             <div class="col-sm-6">
               <label for="name" class="form-label">Name</label>
-              <form:input path="name" cssClass="form-control"/>
-              <form:errors path="name"></form:errors>
+              <form:input path="name" cssClass="form-control" id="name"/>
+              <div>
+              	<form:errors path="name"></form:errors>
+              </div>
             </div>
            </div>
 			
 			<div>
 			<div class="col-sm-6">
               <label for="id" class="form-label">ID</label>
-              <form:input path="id" cssClass="form-control"/>
-              <form:errors path="id"></form:errors>
+              <form:input path="id" cssClass="form-control" id="id"/>
+              <div>
+	              <form:errors path="id"></form:errors>
+              </div>
             </div>
             </div>
 			
 			<div class="col-sm-6">
               <label for="pw" class="form-label">Password</label>
-              <form:password path="pw" cssClass="form-control"/>
-              <form:errors path="pw"></form:errors>
+              <form:password path="pw" cssClass="form-control" id="pw"/>
+              <div>
+	              <form:errors path="pw"></form:errors>
+              </div>
             </div>
             
             <div class="col-sm-6">
               <label for="checkPw" class="form-label">Password Check</label>
-              <%-- <form:password path="pw" cssClass="form-control"/>
-              <form:errors path="pw"></form:errors> --%>
+              <form:password path="checkPw" cssClass="form-control"/>
+              <div>
+              	<form:errors path="checkPw"></form:errors>
+              </div>
             </div>
             
 		<div>
             <div class="col-6">
               <label for="email" class="form-label">Email <span class="text-muted"></label>
-              <form:input path="email" cssClass="form-control"/>
-              <form:errors path="email"></form:errors>
+              <form:input path="email" cssClass="form-control" id="email"/>
+              <div>
+	              <form:errors path="email"></form:errors>
+              </div>
             </div>
 		</div>
 		
             <div class="col-6">
               <label for="phone" class="form-label">Phone<span class="text-muted"></label>
               <form:input path="phone" cssClass="form-control" placeholder="+82) 000-0000-0000" />
-              <form:errors path="phone"></form:errors>
             </div>
 			
 			<div>

@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jh.boot3.util.FileManager;
 import com.jh.boot3.util.Pager;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ProductService {
 
 	@Autowired
@@ -17,6 +19,10 @@ public class ProductService {
 	
 	@Autowired
 	private FileManager fileManager;
+	
+	public ProductVO getDetail(ProductVO productVO) throws Exception{
+		return productMapper.getDetail(productVO);
+	}
 	
 	public List<ProductVO> getList(Pager pager) throws Exception{
 		pager.makeRow();

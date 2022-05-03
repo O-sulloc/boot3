@@ -3,9 +3,11 @@ package com.jh.boot3.product;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +30,28 @@ public class ProductController {
 		return "product";
 	}
 	
+	@GetMapping("manageDetail")
+	public ModelAndView manageDetail(ProductVO productVO) throws Exception{
+		//매개변수로 productnum 받아
+		//판매자가 보는 상세페이지
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("product/manageDetail");
+		productVO=productService.getDetail(productVO);
+		mv.addObject("vo", productVO);
+		return mv;
+	}
+	
 	@GetMapping("detail")
-	public void detail() {
+	public ModelAndView getDetail(ProductVO productVO) throws Exception{
+		//매개변수로 productnum 받아
+		//사용자가 보는 상세페이지
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("product/detail");
 		
+		productVO=productService.getDetail(productVO);
+		mv.addObject("vo", productVO);
+		
+		return mv;
 	}
 	
 	@GetMapping("manage")
@@ -50,9 +71,12 @@ public class ProductController {
 	}
 	
 	@GetMapping("ajaxList")
-	public ModelAndView getAjaxList(Pager pager) throws Exception{
+	public ModelAndView getAjaxList(Pager pager, HttpSession session) throws Exception{
 		//여기에 데이터를 받아서 페이지에 보내줘야하는거니까
 		System.out.println("list를 보내줄게");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		pager.setId(memberVO.getId());
+		
 		ModelAndView mv = new ModelAndView();
 		List<ProductVO> ar = productService.getList(pager);
 		mv.setViewName("common/productList");
@@ -65,9 +89,15 @@ public class ProductController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView setAdd(HttpSession session,ProductVO productVO, MultipartFile [] files) throws Exception{
+	public ModelAndView setAdd(@Valid ProductVO productVO,BindingResult bindingResult, MultipartFile [] files,HttpSession session) throws Exception{
 													//add jsp에서도 files로 파라미터 보내주고 있어.
 		ModelAndView mv = new ModelAndView();
+		
+		if(bindingResult.hasErrors()) {
+			mv.setViewName("product/add");
+			return mv;
+		}
+		
 		for(MultipartFile f:files) {
 			System.out.println(f.getOriginalFilename());
 			System.out.println(f.getSize());
@@ -93,7 +123,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("add")
-	public void setAdd() throws Exception{
+	public void setAdd(@ModelAttribute ProductVO productVO) throws Exception{
 		
 	}
 	

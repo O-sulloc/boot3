@@ -84,18 +84,10 @@ public class MemberController {
 	}
 	
 	@PostMapping("login")
-	public String getLogin(@Valid MemberVO memberVO, BindingResult bindingResult, String remember, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+	public String getLogin(MemberVO memberVO,String remember, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 							//validated 어노테이션 선언. 글고 vo 바로 뒤에 bindingreuslt를 준다. 순서가 중요함.
 		String path = "redirect:./login";
 		// 경로 지정. 일단 로그인 실패하면 login폼으로 다시 돌아가는 걸 넣어둠.
-		
-		if(bindingResult.hasErrors()) {
-			//검증 결과를 bindingresult에 담음
-			//검증 오류가 나면 로그인하는 창으로 가라
-			path = "member/login";
-			return path;
-		}
-		
 		
 		// cooke 발행하기
 		if (remember != null && remember.equals("1")) {
@@ -141,13 +133,21 @@ public class MemberController {
 	@PostMapping("add")
 	public ModelAndView setAdd(@Valid MemberVO memberVO,BindingResult bindingResult, MultipartFile files) throws Exception {
 		ModelAndView mv = new ModelAndView();		
-		memberService.setAdd(memberVO, files);
-		mv.setViewName("redirect:../");
+
+		/*if(bindingResult.hasErrors()) {
+			mv.setViewName("member/add");
+			return mv;
+		}*/
 		
-		if(bindingResult.hasErrors()) {
+		//여기서 사용자 정의로 만든 pw=pw 불러줘야함
+		if(memberService.memberError(memberVO, bindingResult)) {
 			mv.setViewName("member/add");
 			return mv;
 		}
+		
+		memberService.setAdd(memberVO, files);
+		mv.setViewName("redirect:../");
+		
 		return mv;
 	}
 

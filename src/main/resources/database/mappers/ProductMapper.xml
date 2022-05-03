@@ -5,9 +5,22 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.jh.boot3.product.ProductMapper">
+	<select id="getDetail" resultMap="getJoin" parameterType="ProductVO">
+		SELECT P.*, F.*
+		FROM PRODUCT P
+			LEFT OUTER JOIN
+			PRODUCTFILES F
+			USING (PRODUCTNUM)
+		WHERE PRODUCTNUM=#{productNum}
+	</select>
+
 	<select id="getTotalCount" resultType="java.lang.Long" parameterType="Pager">
 		SELECT COUNT(PRODUCTNUM) FROM PRODUCT
-		WHERE PRODUCTNUM>0 and 
+		WHERE PRODUCTNUM>0 
+			<if test="id != null">
+				AND ID=#{id}
+			</if>
+			and 
 			<choose>
 				<when test="kind=='name'">
 					PRODUCTNAME
@@ -19,16 +32,24 @@
 			LIKE CONCAT('%', #{search}, '%')
 	</select>
 
+	<!-- 일반적인 회원이 list보고 싶을 때 / 셀러가 자기가 등록한 리스트 보고 싶을때 -->
 	<select id="getList" parameterType="Pager" resultMap="getJoin">
 		SELECT P.*, F.*
 		FROM (
 				SELECT * FROM PRODUCT 
 				WHERE PRODUCTNUM >0 
 
-				<if test="id != null">
-					AND ID=#{id}
-				</if>
-				
+				<choose>
+					<when test="id != null">
+						and ID=#{id}
+						<!-- id가 널값이 아니면, 즉 셀러면, 셀러가 쓴 글만 조회해 -->
+					</when>
+					<otherwise>
+						and sale=1
+						<!-- 셀러가 아니면 판매중인 제품만 볼 수 있도록 -->
+					</otherwise>
+				</choose>
+	
 				AND
 				<choose>
 					<when test="kind=='name'">
@@ -53,6 +74,8 @@
 		<result column="productPrice" property="productPrice"/>
 		<result column="productCount" property="productCount"/>
 		<result column="productDetail" property="productDetail"/>
+		<result column="id" property="id"/>
+		<result column="sale" property="sale"/>
 		<collection property="productFilesVOs" javaType="List" ofType="ProductFilesVO">
 			<id column="fileNum" property="fileNum"/>
 			<result column="fileName" property="fileName"/>

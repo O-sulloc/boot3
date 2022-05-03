@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,41 +34,64 @@
 
 	</div>
 	
-	<form action="./add" method="post" enctype="multipart/form-data" id="form">
+	<%-- <form action="./add" method="post" enctype="multipart/form-data" id="form"> --%>
+	<form:form method="post" modelAttribute="productVO" enctype="multipart/form-data">
 	<div class="container mt-4">
 		<div class="mb-3 col-2">
 		  <label for="exampleFormControlInput1" class="form-label">Product Name</label>
-		  <input type="text" id="productName" name="productName" class="form-control" placeholder="productName">
+		  <!-- <input type="text" id="productName" name="productName" class="form-control" placeholder="productName"> -->
+		  <form:input path="productName" id="productName" cssClass="form-control"/>
+		  <div>
+		  	<form:errors path="productName"></form:errors>
+		  </div>
 		</div>
 		
 		<div class="mb-3 col-6">
 		  <label for="exampleFormControlInput1" class="form-label">Product Price</label>
-		  <input type="number" id="productPrice" name="productPrice" class="form-control" placeholder="product Price">
+		  <!-- <input type="number" id="productPrice" name="productPrice" class="form-control" placeholder="product Price"> -->
+		  <form:input path="productPrice" id="productPrice" cssClass="form-control"/>
+		  <div>
+		  	<form:errors path="productPrice"></form:errors>
+		  </div>
 		</div>
 		
 		<div class="mb-3 col-6">
 		  <label for="exampleFormControlInput1" class="form-label">Product Quantity</label>
-		  <input type="number" id="productCount" name="productCount" class="form-control" placeholder="product Count">
+		  <!-- <input type="number" id="productCount" name="productCount" class="form-control" placeholder="product Count"> -->
+		  <form:input path="productCount" id="productCount" cssClass="form-control"/>
+		  <div>
+		  	<form:errors path="productCount"></form:errors>
+		  </div>
 		</div>
 		
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">Product Detail</label>
-		  <textarea class="form-control" id="productDetail" name="productDetail"></textarea>
+		  <!-- <textarea class="form-control" id="productDetail" name="productDetail"></textarea> -->
+		  <form:textarea cssClass="form-control" id="productDetail" path="productDetail"/>
+		  <div>
+		  	<form:errors path="productDetail"></form:errors>
+		  </div>
 		</div>
 		
 		<div class="mb-3">
 			<div class="form-check">
-			  <input class="form-check-input sale" type="radio" value="1" name="sale" id="flexRadioDefault1">
+			  <!-- <input class="form-check-input sale" type="radio" value="1" name="sale" id="flexRadioDefault1"> -->
+			  <form:radiobutton path="sale" cssClass="form-check-input sale" value="1" id="flexRadioDefault1"/>
 			  <label class="form-check-label" for="flexRadioDefault1">
 			    판매
 			  </label>
 			</div>
+			
 			<div class="form-check">
-			  <input class="form-check-input sale" type="radio" value="0" name="sale" id="flexRadioDefault2" checked>
+			  <!-- <input class="form-check-input sale" type="radio" value="0" name="sale" id="flexRadioDefault2" checked> -->
+			  <form:radiobutton path="sale" cssClass="form-check-input sale" value="2" id="flexRadioDefault2"/>
 			  <label class="form-check-label" for="flexRadioDefault2">
 			    판매중지
 			  </label>
 			</div>
+			<div>
+			  	<form:errors path="sale"></form:errors>
+			  </div>
 		</div>
 
 		<button type="button" class="btn btn-success mt-4 my-2" id="fileAdd">FileAdd</button>
@@ -77,9 +101,10 @@
 			<!-- 제이쿼리로 파일 인풋 태그들 만들거임. -->
 		</div>
 
-		<button type="button" class="btn btn-outline-success mt-4" id="btn">등록하기</button>
+		<button type="submit" class="btn btn-outline-success mt-4" id="btn2">등록하기</button>
+		<!-- 0503 비동기를 동기로 다시 바꿈 -->
 	</div>
-	</form>
+	</form:form>
 		
 	<script type="text/javascript">
 		let pn = 1;

@@ -26,7 +26,7 @@
 						    <div class="form-floating mt-2">
 						      <!-- <input type="text" name="id" class="form-control" id="floatingInput" placeholder="ID"> -->
 						      
-						      <form:input path="id" cssClass="form-control"/>
+						      <form:input path="id" cssClass="form-control" id="id"/>
 						      <!-- path="id"는 input의 id랑 같은거고 cssclass는 inbput의 clss랑 같은거고 -->
 						      <div>
 						      	<!-- 잘못된 데이터가 들어갔을 때  -->
@@ -36,9 +36,9 @@
 						    </div>
 						    
 						    <div class="form-floating">
-						      <form:password path="pw" cssClass="form-control"/>
-						      <!-- <input type="password" name="pw" class="form-control" id="floatingPassword" placeholder="Password">-->
+						      
 						      <label for="floatingPassword">Password</label>
+						      <form:password path="pw" cssClass="form-control" id="pw"/>
 						      <div>
 						      	<form:errors path="pw"></form:errors>
 						      </div>

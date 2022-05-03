@@ -2,6 +2,7 @@ package com.jh.boot3.member;
 
 import java.util.List;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -12,16 +13,19 @@ public class MemberVO {
 
 	//@NotNull //널값들어오지못하게 검증
 	//@NotEmpty //비어잇지않게 검증
-	@NotBlank(message = "id는 필수입니다.")
+	@NotBlank
 	private String id;
 	
-	@Size(min=3, max=8, message = "비번은 최소 6글자 이상이어야 합니다.")
+	@Size(min=1, max=8)
 	private String pw;
+	
+	private String checkPw;
 	
 	@NotBlank(message="name은 필수입니다.")
 	private String name;
 	
-	@NotBlank(message="email 필수입니다.")
+	@Email(message="email 필수입니다.")
+	@NotBlank
 	private String email;
 	
 	private String phone;

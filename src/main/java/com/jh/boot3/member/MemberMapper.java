@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
+	//이미 가입된 아이디인지 확인하는거
+	public MemberVO getId(MemberVO memberVO) throws Exception;
+	
 	//멤버 아이디 찾기
 	public MemberVO getFindId(MemberVO memberVO) throws Exception;
 	

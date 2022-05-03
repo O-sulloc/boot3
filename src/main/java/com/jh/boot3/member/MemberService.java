@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jh.boot3.util.FileManager;
@@ -22,6 +23,35 @@ public class MemberService {
 	//properties 파일에 개발자가 커스텀한 속성값을 반환할 수 있다.
 	@Value("${member.role.member}")
 	private String memberRole;
+	
+	//0503 사용자 정의 검증 메서드 (비번 ,비번체크 일치하는지 확인)
+	public boolean memberError(MemberVO memberVO, BindingResult bindingResult) throws Exception{
+		//비번 두 개 받아와야되니까 매개변수 멤버vo
+		boolean check = false;
+		//false면 검증 성공(에러없음)
+		//true면 에러 있음
+		
+		//1. 어노테이션 기본 검증 결과 받아주기. bindingresult
+		check = bindingResult.hasErrors();
+		
+		//2. pw랑 pwcheck가 일치하는지 개발자가 수동으로 검증해줌
+		if(!memberVO.getPw().equals(memberVO.getCheckPw())) {
+			check=true;
+			bindingResult.rejectValue("checkPw", "member.password.notEqual");
+			//비번 불일치하면 checkPw에 메세지 출력해줘. 메세지는 member.password.notEqual에 담아놨어
+		}
+		
+		//3. id 중복 검사
+		MemberVO idCheck=memberMapper.getId(memberVO);
+		if(idCheck != null) {
+			//id에 뭐가 들어와 있으면 중복되는지 확인하는건데
+			//왜 아무것도 안ㄷ르어가있는데 지 맘대로 메세지 출력하는데??
+			check = true;
+			bindingResult.rejectValue("id", "member.id.equal");
+		}
+		
+		return check;
+	}
 	
 	//findid
 	public MemberVO getFindId(MemberVO memberVO) throws Exception{
