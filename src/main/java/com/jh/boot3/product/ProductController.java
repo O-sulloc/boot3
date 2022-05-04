@@ -89,7 +89,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("add")
-	public ModelAndView setAdd(@Valid ProductVO productVO,BindingResult bindingResult, MultipartFile [] files,HttpSession session) throws Exception{
+	public ModelAndView setAdd(ProductVO productVO,BindingResult bindingResult, MultipartFile [] files,HttpSession session) throws Exception{
 													//add jsp에서도 files로 파라미터 보내주고 있어.
 		ModelAndView mv = new ModelAndView();
 		
